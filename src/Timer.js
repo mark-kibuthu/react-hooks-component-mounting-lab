@@ -6,7 +6,15 @@ class Timer extends Component {
     color: "#" + Math.floor(Math.random() * 16777215).toString(16)
   };
 
-  // add your code here
+  componentDidMount() {
+    // Set up the interval when the component mounts
+    this.interval = setInterval(this.clockTick, 1000);
+  }
+
+  componentWillUnmount() {
+    // Clean up the interval when the component unmounts
+    clearInterval(this.interval);
+  }
 
   render() {
     const { time, color } = this.state;
@@ -20,7 +28,7 @@ class Timer extends Component {
     );
   }
 
-  //clock functions
+  // Clock functions
   clockTick = () => {
     this.setState(prevState => ({
       time: prevState.time + 1
@@ -31,7 +39,7 @@ class Timer extends Component {
     clearInterval(this.interval);
   };
 
-  // for the 'x' button,
+  // For the 'x' button
   handleClose = () => {
     this.props.removeTimer(this.props.id);
   };
